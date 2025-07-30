@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Pergunta Final</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 500px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            background-color: #000000;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .no-btn {
+            background-color: #000000;
+        }
+
+        .no-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .mensagem {
+            margin-top: 15px;
+            color: red;
+            font-size: 14px;
+            min-height: 18px;
+        }
+
+        .chuva-coracao {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Quem ama mais?</h2>
+
+        <div class="buttons">
+            <button onclick="responderSim()">Iago</button>
+            <button class="no-btn" onclick="responderNao()">Você</button>
+        </div>
+
+        <div class="mensagem" id="mensagemErro"></div>
+    </div>
+
+    <script>
+        function responderSim() {
+            window.location.href = "ultimo.html";
+        }
+
+        function responderNao() {
+            document.getElementById("mensagemErro").textContent = "Só coloquei essa opção por charme, tenho certeza que você clicou errado!";
+        }
+
+        function criarCoracao() {
+            const coracao = document.createElement("span");
+            coracao.innerText = "❤️";
+            coracao.classList.add("chuva-coracao");
+            coracao.style.left = Math.random() * 100 + "vw";
+            coracao.style.top = "-2vh";
+            coracao.style.fontSize = Math.random() * 20 + 10 + "px";
+            coracao.style.opacity = Math.random();
+            coracao.style.transition = "top 4s linear";
+
+            document.body.appendChild(coracao);
+
+            requestAnimationFrame(() => {
+                coracao.style.top = "100vh";
+            });
+
+            setTimeout(() => {
+                coracao.remove();
+            }, 4000);
+        }
+
+        setInterval(criarCoracao, 300);
+    </script>
+
+</body>
+
+</html>

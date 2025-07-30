@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Qual a música mais famosa?</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            position: relative;
+            overflow-x: hidden;
+            /* evita barra horizontal se corações sairem da tela */
+        }
+
+        .container {
+            background: white;
+            padding: 30px 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            width: 500px;
+            z-index: 1;
+            /* fica acima dos corações */
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            margin-top: 15px;
+            font-size: 14px;
+            height: 18px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* botão dica discreto */
+        #btnDica {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            padding: 6px 12px;
+            background-color: #1a2630;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        #btnDica:hover {
+            opacity: 1;
+            background-color: #05080b;
+        }
+
+        /* estilo dos corações */
+        span {
+            pointer-events: none;
+            /* não atrapalha cliques */
+            user-select: none;
+            position: fixed;
+            will-change: top;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="btnDica" onclick="tocarInstrumental()">Dica (🔊)</button>
+
+    <div class="container">
+        <h2>O amor da minha vida ama filmes, então me diz: qual é a música mais famosa do seu filme favorito de
+            princesa?</h2>
+
+        <input type="text" id="resposta" placeholder="Digite sua resposta aqui" autocomplete="off" />
+        <button onclick="validarResposta()">Enviar</button>
+        <div class="error" id="errorMsg"></div>
+
+        <audio id="musica" src="https://archive.org/download/tvtunes_29546/Tangled%20-%20I%20See%20The%20Light.mp3"
+            preload="auto"></audio>
+    </div>
+
+    <script>
+        function tocarInstrumental() {
+            const musica = document.getElementById("musica");
+            musica.play();
+        }
+
+        function validarResposta() {
+            const respostaInput = document.getElementById('resposta');
+            const resposta = respostaInput.value.trim().toLowerCase();
+            const errorMsg = document.getElementById('errorMsg');
+
+            const opcoesValidas = [
+                'vejo enfim a luz brilhar',
+                'i can see the light'
+            ];
+
+            if (opcoesValidas.includes(resposta)) {
+                window.location.href = 'nome.html';
+            } else {
+                errorMsg.textContent = 'Resposta incorreta. Dica extra:  V_j_ E_fi_ a _uz B_il_ar';
+            }
+        }
+
+        function criarCoracao() {
+            const coracao = document.createElement("span");
+            coracao.innerText = "❤️";
+            coracao.style.position = "fixed";
+            coracao.style.zIndex = "-1"; // fica atrás do conteúdo
+            coracao.style.left = Math.random() * 100 + "vw";
+            coracao.style.top = "-2vh";
+            coracao.style.fontSize = Math.random() * 20 + 10 + "px";
+            coracao.style.opacity = Math.random();
+            coracao.style.transition = "top 4s linear";
+
+            document.body.appendChild(coracao);
+
+            requestAnimationFrame(() => {
+                coracao.style.top = "100vh";
+            });
+
+            setTimeout(() => {
+                coracao.remove();
+            }, 4000);
+        }
+
+        setInterval(criarCoracao, 300);
+    </script>
+
+</body>
+
+</html>

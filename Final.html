@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Namora comigo?</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #conteudo {
+            background: #ff7a7a;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        #caixa {
+            background: #ffffff;
+            width: 100%;
+            max-width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .botoes {
+            position: relative;
+            height: 50px;
+        }
+
+        .btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 80px;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .btn-sim {
+            left: 25%;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn-nao {
+            left: 75%;
+            transform: translate(-50%, -50%);
+        }
+
+        @media (max-width: 400px) {
+            h2 {
+                font-size: 16px;
+            }
+
+            .btn {
+                width: 70px;
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="conteudo">
+        <div id="caixa">
+            <h2>Ana Carolina, quer namorar comigo?</h2>
+            <div class="botoes">
+                <button class="btn btn-sim" onclick="sim()">SIM</button>
+                <button class="btn btn-nao" id="nao" onclick="desvia(this)" onmouseover="desvia(this)">NÃO</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sim() {
+            for (let i = 0; i < 30; i++) {
+                const coracao = document.createElement("span");
+                coracao.innerText = "💘";
+                coracao.style.position = "fixed";
+                coracao.style.zIndex = 9999;
+                coracao.style.left = Math.random() * 100 + "vw";
+                coracao.style.top = Math.random() * 100 + "vh";
+                coracao.style.fontSize = Math.random() * 30 + 20 + "px";
+                coracao.style.opacity = 1;
+                coracao.style.transition = "all 1.5s ease-out";
+
+                document.body.appendChild(coracao);
+
+                // Explosão rápida (100ms)
+                setTimeout(() => {
+                    coracao.style.transform = "translateY(-100px) scale(2)";
+                    coracao.style.opacity = 0;
+                }, 100);
+
+                // Remove depois de 10 segundos (dá tempo dos efeitos continuarem)
+                setTimeout(() => {
+                    coracao.remove();
+                }, 10000);
+            }
+
+            const mensagem = document.createElement("div");
+            mensagem.innerText = "Agora somos oficialmente namorados! 💑✨";
+            mensagem.style.position = "fixed";
+            mensagem.style.top = "35%";
+            mensagem.style.left = "50%";
+            mensagem.style.transform = "translate(-50%, -50%)";
+            mensagem.style.background = "#fff";
+            mensagem.style.padding = "20px";
+            mensagem.style.borderRadius = "10px";
+            mensagem.style.fontSize = "20px";
+            mensagem.style.boxShadow = "0 0 20px pink";
+            mensagem.style.zIndex = 9999;
+            document.body.appendChild(mensagem);
+
+            const caixaAudio = document.createElement("div");
+            caixaAudio.innerText = "Você está escutando essa música?";
+            caixaAudio.style.position = "fixed";
+            caixaAudio.style.top = "50%";
+            caixaAudio.style.left = "50%";
+            caixaAudio.style.transform = "translate(-50%, -50%)";
+            caixaAudio.style.background = "#fff";
+            caixaAudio.style.padding = "15px 25px";
+            caixaAudio.style.borderRadius = "10px";
+            caixaAudio.style.fontSize = "18px";
+            caixaAudio.style.fontWeight = "bold";
+            caixaAudio.style.color = "#333";
+            caixaAudio.style.boxShadow = "0 0 15px #f06292";
+            caixaAudio.style.zIndex = 10000;
+            caixaAudio.style.opacity = "0";
+            caixaAudio.style.transition = "opacity 0.5s ease-in-out";
+            document.body.appendChild(caixaAudio);
+
+            setTimeout(() => {
+                caixaAudio.style.opacity = "1";
+            }, 5500);
+
+            setTimeout(() => {
+                caixaAudio.style.opacity = "0";
+                mensagem.remove();
+            }, 12500);
+
+            setTimeout(() => {
+                caixaAudio.remove();
+                location.href = "https://youtu.be/gUpGTRR4Tt4?si=DN9pNlg_jWkHBRvi"; // Trocar pela música dela
+            }, 13000);
+        }
+
+
+
+
+        function desvia(btn) {
+            const container = btn.parentElement;
+            const maxX = container.clientWidth - btn.offsetWidth;
+            const maxY = container.clientHeight - btn.offsetHeight;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            btn.style.left = `${randomX}px`;
+            btn.style.top = `${randomY}px`;
+            btn.style.transform = "translate(0, 0)";
+        }
+
+        // 🌟 Corações caindo no fundo
+        function criarCoracao() {
+            const coracao = document.createElement("span");
+            coracao.innerText = "❤️";
+            coracao.style.position = "fixed";
+            coracao.style.zIndex = "0";
+            coracao.style.left = Math.random() * 100 + "vw";
+            coracao.style.top = "-2vh";
+            coracao.style.fontSize = Math.random() * 20 + 10 + "px";
+            coracao.style.opacity = Math.random();
+            coracao.style.transition = "top 4s linear";
+
+            document.body.appendChild(coracao);
+
+            requestAnimationFrame(() => {
+                coracao.style.top = "100vh";
+            });
+
+            setTimeout(() => {
+                coracao.remove();
+            }, 4000);
+        }
+
+        // 🌟 Começa a "chuva" de corações
+        setInterval(criarCoracao, 300);
+    </script>
+
+
+
+
+
+</body>
+
+</html>
